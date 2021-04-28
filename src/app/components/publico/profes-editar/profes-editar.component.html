@@ -1,0 +1,136 @@
+<div class="mt-2">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+      <li class="breadcrumb-item">
+        <a href="javascript: void(0)">Profesores</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/profesores/admin']">Administrar</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Editar</li>
+    </ol>
+  </nav>
+</div>
+
+<div class="row justify-content-md-center">
+  <div class="col-md-10">
+    <div class="card">
+      <h5 class="card-header fondoOscuro text-light">Edición de Profesores</h5>
+      <div class="card-body">
+        <form
+          #frmEdit="ngForm"
+          (ngSubmit)="frmEdit.form.valid && enviarInfo(frmEdit)"
+          novalidate
+        >
+          <div class="form-group">
+            <label fro="nomPro"> Nombre Profesor </label>
+            <input
+              class="form-control"
+              type="text"
+              id="nomPro"
+              name="nomPro"
+              [(ngModel)]="objProfesor.nombreProfesor"
+              #nomPro="ngModel"
+              [ngClass]="{ 'is-invalid': frmEdit.submitted && nomPro.invalid }"
+              required
+              minlength="5"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="frmEdit.submitted && nomPro.invalid"
+            >
+              <span *ngIf="nomPro?.errors?.required"
+                >Nombre del profesor requerido</span
+              >
+              <span *ngIf="nomPro?.errors?.minlenght"
+                >Debe tener minimo 5 caracteres</span
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label fro="docPro"> Documento del Profesor </label>
+            <input
+              class="form-control"
+              type="text"
+              id="docPro"
+              name="docPro"
+              [(ngModel)]="objProfesor.documento"
+              #docPro="ngModel"
+              pattern="\d*"
+              [ngClass]="{ 'is-invalid': frmEdit.submitted && docPro.invalid }"
+              required
+              minlength="5"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="frmEdit.submitted && docPro.invalid"
+            >
+              <span *ngIf="docPro?.errors?.required"
+                >Documento del profesor requerido</span
+              >
+              <span *ngIf="docPro?.errors?.minlenght"
+                >Debe tener minimo 5 caracteres</span
+              >
+              <span *ngIf="docPro?.errors?.pattern"
+                >Solo se admiten números</span
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label fro="fotPro"> Foto del Profesor </label>
+            <div class="input-group">
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                id="fotPro"
+                name="fotPro"
+                [(ngModel)]="objProfesor.nombrefoto"
+                #fotPro="ngModel"
+                [ngClass]="{
+                  'is-invalid': frmEdit.submitted && fotPro.invalid
+                }"
+                required
+                accept="image/x-png, image/jpeg, image/gif"
+              />
+              <button
+                type="button"
+                class="btn btn-info btn-sm text-dark"
+                (click)="fileInput.click()"
+              >
+                <span>+</span>
+                <input
+                  #fileInput
+                  type="file"
+                  (change)="seleccionarFoto($event)"
+                  style="display: none"
+                />
+              </button>
+            </div>
+            <div
+              class="invalid-feedback"
+              *ngIf="frmEdit.submitted && fotPro.invalid"
+            >
+              <span *ngIf="fotPro?.errors?.required"
+                >Foto del profesor requerido</span
+              >
+            </div>
+          </div>
+          <!--Img para mostrar la foto-->
+          <div class="text-left">
+            <img
+              class="img-thumbnail"
+              style="width: 250px; height: 100%"
+              [src]="objProfesor.fotoBase64"
+              alt="No encontre la foto"
+              onerror="this.src='../assets/img/no-image.png'"
+            />
+          </div>
+          <button class="btn btn-info text-dark">Actualizar Profesor</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+.fondoOscuro{
+  background-color: #2f5d62;
+}
+
+.iconInicio{
+  color: #ffb037;
+  font-size: 20px;
+}

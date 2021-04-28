@@ -1,0 +1,64 @@
+<div class="mt-2">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/inicio']">Inicio</a></li>
+      <li class="breadcrumb-item">
+        <a href="javascript: void(0)">Profesores</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Listar</li>
+    </ol>
+  </nav>
+</div>
+<!--Paginador Inicio-->
+<div class="row justify-content-md-center">
+  <div class="col-md-4 text-left" style="padding-left: 0px">
+    <small
+      ><strong>{{ cantidadTotalRegistros }}</strong> Regsitros encontrados en
+      <strong>{{ cantidadPaginas }}</strong> pagínas</small
+    >
+  </div>
+
+  <div class="col-md-7 text-right" style="padding-right: 0px">
+    <small>
+      <pagination-controls
+        id="profePaginacion"
+        (pageChange)="paginaActual = $event"
+        [maxSize]="10"
+        [directionLinks]="true"
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+      >
+      </pagination-controls>
+    </small>
+  </div>
+</div>
+<!--Paginador Fin-->
+
+<div class="row justify-content-md-center">
+  <table class="table table-hover col-md-11">
+    <thead class="thead fondoOscuro text-light">
+      <tr>
+        <th scope="col">Codigo</th>
+        <th scope="col">Documento</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Foto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let objProf  of arrProfesores
+      | paginate:{
+        id:'profePaginacion',
+        itemsPerPage: cantidadMostrar,
+        currentPage: paginaActual,
+        totalItems: cantidadTotalRegistros
+     };
+     let i = index
+     ">
+        <th>{{objProf.codigo}}</th>
+        <td>{{objProf.documento}}</td>
+        <td>{{objProf.nombreProfesor}}</td>
+        <td>{{objProf.nombrefoto}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
