@@ -14,7 +14,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
 const routes: Routes = [
   //Creacion de rutas
   { path: 'inicio', component: InicioComponent },
-  { path: 'login', component: AccesoComponent },
+  { path: 'acceso', component: AccesoComponent },
   //Creacion de rutas con hijos
   {
     path: 'profesores',

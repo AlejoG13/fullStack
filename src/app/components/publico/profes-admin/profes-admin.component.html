@@ -64,7 +64,8 @@
         <td>{{ objProf.nombreProfesor }}</td>
         <td>{{ objProf.nombrefoto }}</td>
         <td>
-          <i class="far fa-trash-alt"></i>
+          <i class="far fa-trash-alt"
+          (click)="abrirModalEliminar(modalEliminarConfirmar, objProf)"></i>
           &nbsp;
           <a [routerLink]="['/profesores/editar', objProf.codigo]">
             <i class="far fa-edit"></i>
@@ -74,3 +75,35 @@
     </tbody>
   </table>
 </div>
+
+<!-- Plantilla para ventana modal -->
+<ng-template #modalEliminarConfirmar>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{ modalTitulo }}</h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <img
+      [src]="profeSeleccionado.fotoBase64"
+      alt="Foto refundida"
+      style="height: 225; width: 100%"
+      onerror="this.src='../../assets/img/no-image.png';"
+    />
+    {{ modalTexto }}<br /><strong>{{ modalContenido }}</strong>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" (click)="cancelar()">
+      Cancelar
+    </button>
+    <button type="button" class="btn btn-danger" (click)="eliminar()">
+      Eliminar
+    </button>
+  </div>
+</ng-template>

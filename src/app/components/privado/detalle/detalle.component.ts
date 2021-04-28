@@ -27,7 +27,7 @@ export class DetalleComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((parametro: ParamMap) => {
-      const profeCodigoTxt = parametro.get('codProfesor');
+      this.tmp = parametro.get('codProfesor');
       const profeCodigo = parseFloat(this.tmp);
 
       if (Number.isNaN(profeCodigo) || profeCodigo == 0) {

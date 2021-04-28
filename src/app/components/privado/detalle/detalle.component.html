@@ -1,11 +1,94 @@
-<div class="container">
-  <div *ngIf="cantidadUniversidades > 0; then mostrarDatos; else mensajeVacio">
-
-  </div>
+<div>
+  <div
+    *ngIf="cantidadUniversidades > 0; then mostrarDatos; else mensajeVacio"
+  ></div>
 </div>
 
 <ng-template #mostrarDatos>
-  Aca va el listado de las Universidades
+  <div class="row border mt-2">
+    <div class="col-md-8">
+      <table class="table table-bordered table-sm table-hover my-2">
+        <thead>
+          <tr>
+            <th style="width: 5%">Nro</th>
+            <th style="width: 40%">Universidad</th>
+            <th style="width: 35%">Nombre Profesor</th>
+            <th style="width: 20%">Logo Universidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let objUniP of arrProfesUniversidades; let i = index"
+            (click)="seleccionarProfeUni(objUniP)"
+            [class.table-primary]="objUniP == profeUniSeleccionado"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>{{ objUniP.codUniversidad.nombreUniversidad }}</td>
+            <td>{{ objUniP.codProfesor.nombreProfesor }}</td>
+            <td>{{ objUniP.codUniversidad.nombreLogo }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-4">
+      <div
+        *ngIf="profeUniSeleccionado.codProfesor.codigo != 0"
+        class="bg-light"
+      >
+        <div class="row">
+          <label class="col-sm-3 text-success">
+            <small>Universidad</small>
+          </label>
+          <div class="col-sm-8">
+            {{ profeUniSeleccionado.codUniversidad.nombreUniversidad }}
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-sm-3 text-success">
+            <small>Logo</small>
+          </label>
+          <div class="col-sm-8">
+            {{ profeUniSeleccionado.codUniversidad.nombreUniversidad }}
+          </div>
+        </div>
+        <div class="text-left">
+          <img
+            class="img-thumbnail"
+            style="width: 200px; height: 100%"
+            alt="No encuentro la imagen"
+            [src]="profeUniSeleccionado.codUniversidad.logoBase64"
+            onerror="this.src='../assets/img/no-image.png'"
+          />
+        </div>
+        <div class="row mt-2">
+          <label class="col-sm-3 text-success">
+            <small>Documento</small>
+          </label>
+          <div class="col-sm-8">
+            {{ profeUniSeleccionado.codProfesor.documento }}
+          </div>
+        </div>
+        <div class="row mt-2">
+          <label class="col-sm-3 text-success">
+            <small>Profesor</small>
+          </label>
+          <div class="col-sm-8">
+            {{ profeUniSeleccionado.codProfesor.nombreProfesor }}
+          </div>
+        </div>
+        <div class="text-left">
+          <img
+            class="img-thumbnail"
+            style="width: 200px; height: 100%"
+            alt="No encuentro la imagen"
+            [src]="profeUniSeleccionado.codProfesor.fotoBase64"
+            onerror="this.src='../assets/img/no-image.png'"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #mensajeVacio>
